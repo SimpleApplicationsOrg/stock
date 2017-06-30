@@ -12,7 +12,7 @@ func BaseAPIReq() *APIRequest {
 }
 
 func (apiReq *APIRequest) WithPath(path string) *APIRequest {
-	apiReq.path = path
+	apiReq.path = "/" + path
 	return apiReq
 }
 

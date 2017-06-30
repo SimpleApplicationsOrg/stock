@@ -9,10 +9,6 @@ import (
 	"time"
 )
 
-type testStruct struct {
-	Test string `json:"test"`
-}
-
 const (
 	okResponse    = `{"test":"response"}`
 	errorResponse = `{"fake error json string"}`
@@ -88,4 +84,5 @@ func TestCallApiWithTimeout(t *testing.T) {
 	if err == nil || !strings.Contains(err.Error(), "Client.Timeout") {
 		t.Errorf("should have timeout")
 	}
+
 }

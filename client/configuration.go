@@ -10,19 +10,19 @@ type Configuration struct {
 
 const DefaultTimeout time.Duration = 2 * time.Second
 
-func NewConfiguration(url string) Configuration {
-	return Configuration{
+func NewConfiguration(url string) *Configuration {
+	return &Configuration{
 		URL:     url,
 		Keys:    make(map[string]string),
 		Timeout: DefaultTimeout}
 }
 
-func (c Configuration) WithTimeout(timeout time.Duration) Configuration {
+func (c *Configuration) WithTimeout(timeout time.Duration) *Configuration {
 	c.Timeout = timeout
 	return c
 }
 
-func (c Configuration) WithKey(key string, value string) Configuration {
+func (c *Configuration) WithKey(key string, value string) *Configuration {
 	c.Keys[key] = value
 	return c
 }

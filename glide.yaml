@@ -1,0 +1,3 @@
+package: github.com/SimpleApplicationOrg/stock
+import:
+- package: github.com/tidwall/gjson
