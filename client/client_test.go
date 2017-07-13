@@ -43,7 +43,7 @@ func buildTimeoutServer(okResponse string) *httptest.Server {
 func TestCallSuccess(t *testing.T) {
 	ts := buildTestServer(okResponse)
 	defer ts.Close()
-	config := NewConfiguration(ts.URL).WithKey("apikey", validAPIKey)
+	config := NewConfiguration(ts.URL).AddKey("apikey", validAPIKey)
 	api := NewClient(config)
 
 	resp, err := api.Call(BaseAPIReq())
@@ -59,7 +59,7 @@ func TestCallSuccess(t *testing.T) {
 func TestCallError(t *testing.T) {
 	ts := buildTestServer(okResponse)
 	defer ts.Close()
-	config := NewConfiguration(ts.URL).WithKey("apikey", invalidAPIKey)
+	config := NewConfiguration(ts.URL).AddKey("apikey", invalidAPIKey)
 	api := NewClient(config)
 
 	resp, _ := api.Call(BaseAPIReq())
@@ -75,7 +75,7 @@ func TestCallApiWithTimeout(t *testing.T) {
 	defer ts.Close()
 
 	config := NewConfiguration(ts.URL).
-		WithKey("apikey", validAPIKey).
+		AddKey("apikey", validAPIKey).
 		WithTimeout(10 * time.Millisecond)
 	api := NewClient(config)
 

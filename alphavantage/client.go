@@ -7,11 +7,12 @@ import (
 )
 
 const (
-	ALPHA_VANTAGE_URL       = "ALPHA_VANTAGE_URL"
-	ALPHA_VANTAGE_KEY_NAME  = "ALPHA_VANTAGE_KEY_NAME"
-	ALPHA_VANTAGE_KEY_VALUE = "ALPHA_VANTAGE_KEY_VALUE"
+	envURL      = "ALPHA_VANTAGE_URL"
+	envKeyName  = "ALPHA_VANTAGE_KEY_NAME"
+	envKeyValue = "ALPHA_VANTAGE_KEY_VALUE"
 )
 
+// Client is the specific Alpha Vantage API client
 func Client() (*client.APIClient, error) {
 	config, err := configure()
 	if err != nil {
@@ -21,24 +22,24 @@ func Client() (*client.APIClient, error) {
 }
 
 func configure() (*client.Configuration, error) {
-	url := os.Getenv(ALPHA_VANTAGE_URL)
-	keyName := os.Getenv(ALPHA_VANTAGE_KEY_NAME)
-	keyValue := os.Getenv(ALPHA_VANTAGE_KEY_VALUE)
+	url := os.Getenv(envURL)
+	keyName := os.Getenv(envKeyName)
+	keyValue := os.Getenv(envKeyValue)
 
 	if url == "" {
-		return nil, fmt.Errorf("missing %s", ALPHA_VANTAGE_URL)
+		return nil, fmt.Errorf("missing %s", envURL)
 	}
 
 	if keyName == "" {
-		return nil, fmt.Errorf("missing %s", ALPHA_VANTAGE_KEY_NAME)
+		return nil, fmt.Errorf("missing %s", envKeyName)
 	}
 
 	if keyValue == "" {
-		return nil, fmt.Errorf("missing %s", ALPHA_VANTAGE_KEY_VALUE)
+		return nil, fmt.Errorf("missing %s", envKeyValue)
 	}
 
 	config := client.NewConfiguration(url)
-	config.WithKey(keyName, keyValue)
+	config.AddKey(keyName, keyValue)
 
 	return config, nil
 }
