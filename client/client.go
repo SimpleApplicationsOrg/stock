@@ -6,11 +6,13 @@ import (
 	"net/http"
 )
 
+// APIClient is the generic client that serves as the base for specific client implementations
 type APIClient struct {
 	config     *Configuration
 	httpClient *http.Client
 }
 
+// NewClient builds a new APIClient from a configuration
 func NewClient(config *Configuration) *APIClient {
 	return &APIClient{
 		config:     config,
@@ -18,9 +20,10 @@ func NewClient(config *Configuration) *APIClient {
 	}
 }
 
+// Call execute http requests using APIRequest. The answer is a raw json.
 func (apiClient *APIClient) Call(apiReq *APIRequest) (string, error) {
 
-	req, err := buildHttpReq(apiReq, *apiClient.config)
+	req, err := buildHTTPReq(apiReq, *apiClient.config)
 	if err != nil {
 		log.Printf("call: %s", err.Error())
 		return "", err
@@ -47,12 +50,12 @@ func (apiClient *APIClient) Call(apiReq *APIRequest) (string, error) {
 	return string(body), nil
 }
 
-func buildHttpReq(apiReq *APIRequest, config Configuration) (*http.Request, error) {
+func buildHTTPReq(apiReq *APIRequest, config Configuration) (*http.Request, error) {
 
 	endpoint := config.URL + apiReq.path
 	req, err := http.NewRequest(apiReq.method, endpoint, nil)
 	if err != nil {
-		log.Println("buildHttpReq:", err)
+		log.Println("buildHTTPReq:", err)
 		return nil, err
 	}
 

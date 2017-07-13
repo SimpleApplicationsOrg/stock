@@ -8,6 +8,7 @@ import (
 	"log"
 )
 
+// TimeSeriesIntraday returns intraday time series (timestamp, open, high, low, close, volume) of the equity specified, updated realtime.
 func TimeSeriesIntraday(apiClient *client.APIClient, symbol string, interval string) (*TimeSeriesData, error) {
 	req := client.BaseAPIReq().WithPath("query").
 		AddParam("function", "TIME_SERIES_INTRADAY").
