@@ -14,17 +14,11 @@ type TimeSeriesData struct {
 
 // MetaData about the TimeSeriesData
 type MetaData interface {
-	// Information metadata value
 	Information() string
-	// Symbol metadata value
 	Symbol() string
-	// LastRefreshed metadata value
 	LastRefreshed() string
-	// Interval metadata value (if available)
 	Interval() string
-	// OutputSize metadata value
 	OutputSize() string
-	// TimeZone metadata value
 	TimeZone() string
 }
 
