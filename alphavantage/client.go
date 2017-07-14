@@ -12,16 +12,22 @@ const (
 	envKeyValue = "ALPHA_VANTAGE_KEY_VALUE"
 )
 
-// Client is the specific Alpha Vantage API client
-func Client() (*client.APIClient, error) {
-	config, err := configure()
+// AVClient is the client for the Alpha Vantage API
+type AVClient struct {
+	client *client.APIClient
+}
+
+// NewAVClient gives a specific Alpha Vantage API client
+func NewAVClient() (*AVClient, error) {
+	config, err := configuration()
 	if err != nil {
 		return nil, err
 	}
-	return client.NewClient(config), nil
+	client := client.NewClient(config)
+	return &AVClient{client}, nil
 }
 
-func configure() (*client.Configuration, error) {
+func configuration() (*client.Configuration, error) {
 	url := os.Getenv(envURL)
 	keyName := os.Getenv(envKeyName)
 	keyValue := os.Getenv(envKeyValue)
