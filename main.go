@@ -18,7 +18,7 @@ func main() {
 		log.Printf("main: %s", err.Error())
 		return
 	}
-	metaData := data.MetaData
+	metaData := *data.MetaData
 	fmt.Println(metaData.Information(), "->", metaData.OutputSize())
 	fmt.Println(metaData.LastRefreshed(), metaData.TimeZone())
 	fmt.Println("Time Series", metaData.Interval())

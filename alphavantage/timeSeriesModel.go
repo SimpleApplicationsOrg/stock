@@ -13,36 +13,52 @@ type TimeSeriesData struct {
 }
 
 // MetaData about the TimeSeriesData
-type MetaData map[string]string
+type MetaData interface {
+	// Information metadata value
+	Information() string
+	// Symbol metadata value
+	Symbol() string
+	// LastRefreshed metadata value
+	LastRefreshed() string
+	// Interval metadata value (if available)
+	Interval() string
+	// OutputSize metadata value
+	OutputSize() string
+	// TimeZone metadata value
+	TimeZone() string
+}
+
+// MetaDataGeneric implementation
+type MetaDataGeneric map[string]string
 
 // Information gives the value for the metadata "1. Information"
-func (m MetaData) Information() string {
+func (m MetaDataGeneric) Information() string {
 	return m["1. Information"]
 }
 
 // Symbol gives the values for the metadata "2. Symbol"
-func (m MetaData) Symbol() string {
+func (m MetaDataGeneric) Symbol() string {
 	return m["2. Symbol"]
 }
 
 // LastRefreshed gives the value for the metadata "3. Last Refreshed"
-func (m MetaData) LastRefreshed() string {
+func (m MetaDataGeneric) LastRefreshed() string {
 	return m["3. Last Refreshed"]
 }
 
-// Interval gives the value for the metadata "4. Interval"
-func (m MetaData) Interval() string {
-	return m["4. Interval"]
+// Interval not implemented in MetaDataGeneric
+func (m MetaDataGeneric) Interval() string {
+	return "Not implemented"
 }
 
-// OutputSize give the value for the metadata "5. Output Size"
-func (m MetaData) OutputSize() string {
-	return m["5. Output Size"]
+// OutputSize give the value for the metadata "4. Output Size"
+func (m MetaDataGeneric) OutputSize() string {
+	return m["4. Output Size"]
 }
 
-// TimeZone give the value for the metadata "6. Time Zone"
-func (m MetaData) TimeZone() string {
-	return m["6. Time Zone"]
+// TimeZone give the value for the metadata "5. Time Zone"
+func (m MetaDataGeneric) TimeZone() string {
+	return m["5. Time Zone"]
 }
 
 // TimeSeries temporal resolution with the timestamp as the keys

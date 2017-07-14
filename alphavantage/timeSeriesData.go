@@ -24,11 +24,13 @@ func TimeSeriesIntraday(apiClient *client.APIClient, symbol string, interval str
 	metaData := gjson.Get(res, "Meta Data")
 	timeSeries := gjson.Get(res, fmt.Sprintf("Time Series (%s)", interval))
 
-	var timeSeriesMetaData MetaData
-	err = json.Unmarshal([]byte(metaData.String()), &timeSeriesMetaData)
+	var timeSeriesMetaDataIntraday MetaDataIntraday
+	err = json.Unmarshal([]byte(metaData.String()), &timeSeriesMetaDataIntraday)
 	if err != nil {
 		return nil, err
 	}
+
+	timeSeriesMetaData := MetaData(&timeSeriesMetaDataIntraday)
 
 	var series TimeSeries
 	err = json.Unmarshal([]byte(timeSeries.String()), &series)
