@@ -2,7 +2,7 @@ package alphavantage
 
 import (
 	"fmt"
-	"github.com/SimpleApplicationOrg/stock/client"
+	"github.com/SimpleApplicationsOrg/stock/client"
 	"os"
 )
 

@@ -3,7 +3,7 @@ package alphavantage
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/SimpleApplicationOrg/stock/client"
+	"github.com/SimpleApplicationsOrg/stock/client"
 	"github.com/tidwall/gjson"
 	"log"
 )

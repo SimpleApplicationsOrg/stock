@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/SimpleApplicationOrg/stock/alphavantage"
+	"github.com/SimpleApplicationsOrg/stock/alphavantage"
 	"log"
 )
 
