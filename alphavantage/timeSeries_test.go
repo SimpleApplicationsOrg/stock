@@ -11,8 +11,8 @@ import (
 )
 
 func response() string {
-	pathResJson := path.Join("testResources", string(os.PathSeparator), "timeSeriesIntraday.json")
-	res, err := ioutil.ReadFile(pathResJson)
+	pathResJSON := path.Join("testResources", string(os.PathSeparator), "timeSeriesIntraday.json")
+	res, err := ioutil.ReadFile(pathResJSON)
 	if err != nil {
 		fmt.Printf("Error retrieving test response: %s", err.Error())
 	}
