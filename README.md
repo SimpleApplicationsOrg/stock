@@ -8,4 +8,4 @@ A SDK in go for accessing alpha vantage API (www.alphavantage.co)
 
 ### Packages documentation:
 - [client](https://godoc.org/github.com/SimpleApplicationsOrg/stock/client)
-- [alphavantage](https://godoc.org/github.com/SimpleApplicationsOrg/stock/client)
+- [alphavantage](https://godoc.org/github.com/SimpleApplicationsOrg/stock/alphavantage)
