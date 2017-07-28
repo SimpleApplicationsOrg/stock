@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/SimpleApplicationsOrg/stock/client"
 	"os"
+	"time"
 )
 
 const (
@@ -46,6 +47,7 @@ func configuration() (*client.Configuration, error) {
 
 	config := client.NewConfiguration(url)
 	config.AddKey(keyName, keyValue)
+	config.Timeout = 5 * time.Second
 
 	return config, nil
 }
