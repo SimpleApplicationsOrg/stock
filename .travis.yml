@@ -4,7 +4,10 @@ go:
   - 1.8
 
 before_install:
-  - ./install.glide.sh
+  - sudo add-apt-repository ppa:masterminds/glide -y
+  - sudo apt-get update -q
+  - sudo apt-get install glide -y
+  - glide install
 
 script:
   - ./go.test.sh
