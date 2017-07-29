@@ -1,7 +1,8 @@
-package client
+package client_test
 
 import (
 	"fmt"
+	"github.com/SimpleApplicationsOrg/stock/client"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -43,10 +44,10 @@ func buildTimeoutServer(okResponse string) *httptest.Server {
 func TestCallSuccess(t *testing.T) {
 	ts := buildTestServer(okResponse)
 	defer ts.Close()
-	config := NewConfiguration(ts.URL).AddKey("apikey", validAPIKey)
-	api := NewClient(config)
+	config := client.NewConfiguration(ts.URL).AddKey("apikey", validAPIKey)
+	api := client.NewClient(config)
 
-	resp, err := api.Call(BaseAPIReq())
+	resp, err := api.Call(client.NewAPIReq())
 	if err != nil {
 		t.Errorf("error on call: %s", err)
 	}
@@ -59,30 +60,47 @@ func TestCallSuccess(t *testing.T) {
 func TestCallError(t *testing.T) {
 	ts := buildTestServer(okResponse)
 	defer ts.Close()
-	config := NewConfiguration(ts.URL).AddKey("apikey", invalidAPIKey)
-	api := NewClient(config)
+	config := client.NewConfiguration(ts.URL).AddKey("apikey", invalidAPIKey)
+	api := client.NewClient(config)
 
-	resp, _ := api.Call(BaseAPIReq())
+	resp, _ := api.Call(client.NewAPIReq())
 
 	if resp != errorResponse {
 		t.Errorf("should receive error")
 	}
-
 }
 
 func TestCallApiWithTimeout(t *testing.T) {
 	ts := buildTimeoutServer(okResponse)
 	defer ts.Close()
 
-	config := NewConfiguration(ts.URL).
+	config := client.NewConfiguration(ts.URL).
 		AddKey("apikey", validAPIKey).
 		WithTimeout(10 * time.Millisecond)
-	api := NewClient(config)
+	api := client.NewClient(config)
 
-	_, err := api.Call(BaseAPIReq())
+	_, err := api.Call(client.NewAPIReq())
 
 	if err == nil || !strings.Contains(err.Error(), "Client.Timeout") {
 		t.Errorf("should have timeout")
 	}
+}
 
+func Example() {
+	config := client.NewConfiguration("https://api.com").
+		AddKey("apiKey", "value").
+		WithTimeout(3 * time.Second)
+
+	newClient := client.NewClient(config)
+
+	apiReq := client.NewAPIReq().
+		WithPath("endpointPath").
+		AddParam("search", "example")
+
+	response, err := newClient.Call(apiReq)
+	if err != nil {
+		fmt.Printf("error calling api: %s", err.Error())
+		return
+	}
+	fmt.Println(response)
 }

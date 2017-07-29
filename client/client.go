@@ -16,7 +16,7 @@ type APIClient struct {
 func NewClient(config *Configuration) *APIClient {
 	return &APIClient{
 		config:     config,
-		httpClient: &http.Client{Timeout: config.Timeout},
+		httpClient: &http.Client{Timeout: config.timeout},
 	}
 }
 
@@ -52,7 +52,7 @@ func (apiClient *APIClient) Call(apiReq *APIRequest) (string, error) {
 
 func buildHTTPReq(apiReq *APIRequest, config Configuration) (*http.Request, error) {
 
-	endpoint := config.URL + apiReq.path
+	endpoint := config.url + apiReq.path
 	req, err := http.NewRequest(apiReq.method, endpoint, nil)
 	if err != nil {
 		log.Println("buildHTTPReq:", err)
@@ -60,7 +60,7 @@ func buildHTTPReq(apiReq *APIRequest, config Configuration) (*http.Request, erro
 	}
 
 	q := req.URL.Query()
-	for key, value := range config.Keys {
+	for key, value := range config.keys {
 		q.Add(key, value)
 	}
 	for param, value := range apiReq.params {

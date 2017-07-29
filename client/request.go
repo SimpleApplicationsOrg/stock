@@ -7,9 +7,15 @@ type APIRequest struct {
 	params map[string]string
 }
 
-// BaseAPIReq builds a basic APIRequest
-func BaseAPIReq() *APIRequest {
+// NewAPIReq builds a basic APIRequest using method GET as default
+func NewAPIReq() *APIRequest {
 	apiReq := &APIRequest{method: "GET", params: make(map[string]string)}
+	return apiReq
+}
+
+// Method sets the method to be used in the http request execution
+func (apiReq *APIRequest) Method(method string) *APIRequest {
+	apiReq.method = method
 	return apiReq
 }
 

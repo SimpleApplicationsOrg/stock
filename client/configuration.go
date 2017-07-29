@@ -2,32 +2,31 @@ package client
 
 import "time"
 
+const defaultTimeout time.Duration = 2 * time.Second
+
 // Configuration of APIClient
 type Configuration struct {
-	URL     string
-	Keys    map[string]string
-	Timeout time.Duration
+	url     string
+	keys    map[string]string
+	timeout time.Duration
 }
 
-// DefaultTimeout for a APIClient Configuration
-const DefaultTimeout time.Duration = 2 * time.Second
-
-// NewConfiguration builds a basic Configuration from a API URL
+// NewConfiguration builds a basic Configuration from a API url
 func NewConfiguration(url string) *Configuration {
 	return &Configuration{
-		URL:     url,
-		Keys:    make(map[string]string),
-		Timeout: DefaultTimeout}
+		url:     url,
+		keys:    make(map[string]string),
+		timeout: defaultTimeout}
 }
 
 // WithTimeout sets a custom timeout in the APIClient Configuration
 func (c *Configuration) WithTimeout(timeout time.Duration) *Configuration {
-	c.Timeout = timeout
+	c.timeout = timeout
 	return c
 }
 
 // AddKey adds a key, value in the APIClient Configuration
 func (c *Configuration) AddKey(key string, value string) *Configuration {
-	c.Keys[key] = value
+	c.keys[key] = value
 	return c
 }

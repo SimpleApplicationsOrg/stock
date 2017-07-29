@@ -137,7 +137,7 @@ func TestTimeSeriesKeys(t *testing.T) {
 	}
 
 	timeSeries := *resp.TimeSeries
-	count := len(timeSeries.Keys())
+	count := len(timeSeries.TimeStamps())
 	if count != 100 {
 		t.Errorf("timeSeries not properly set: keys count = %d", count)
 	}

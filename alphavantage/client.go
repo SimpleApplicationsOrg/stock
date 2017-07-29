@@ -47,7 +47,7 @@ func configuration() (*client.Configuration, error) {
 
 	config := client.NewConfiguration(url)
 	config.AddKey(keyName, keyValue)
-	config.Timeout = 5 * time.Second
+	config.WithTimeout(5 * time.Second)
 
 	return config, nil
 }
