@@ -4,7 +4,7 @@ go:
   - 1.8
 
 before_install:
-  - go get -t -v ./...
+  - ./install.glide.sh
 
 script:
   - ./go.test.sh
