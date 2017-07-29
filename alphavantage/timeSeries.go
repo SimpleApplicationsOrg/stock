@@ -19,7 +19,7 @@ const (
 // TimeSeriesIntraday returns intraday time series (timestamp, open, high, low, close, volume) of the equity specified, updated realtime.
 func (api *AVClient) TimeSeriesIntraday(symbol, interval string) (*TimeSeriesData, error) {
 
-	req := client.BaseAPIReq().WithPath("query").
+	req := client.NewAPIReq().WithPath("query").
 		AddParam("function", Intraday).
 		AddParam("symbol", symbol).
 		AddParam("interval", interval)
@@ -40,7 +40,7 @@ func (api *AVClient) TimeSeriesIntraday(symbol, interval string) (*TimeSeriesDat
 // TimeSeries gets daily, weekly and monthly series
 func (api *AVClient) TimeSeries(function, symbol string) (*TimeSeriesData, error) {
 
-	req := client.BaseAPIReq().WithPath("query").
+	req := client.NewAPIReq().WithPath("query").
 		AddParam("function", function).
 		AddParam("symbol", symbol)
 

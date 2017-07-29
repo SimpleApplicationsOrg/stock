@@ -69,14 +69,14 @@ func (m MetaData) key(contains string) string {
 // TimeSeries temporal resolution with the timestamp as the keys
 type TimeSeries map[string]Series
 
-// Keys gives an array with all the value keys from the time series
-func (t TimeSeries) Keys() []string {
-	var timeSeriesKeys []string
+// TimeStamps gives an array with all the value keys from the time series
+func (t TimeSeries) TimeStamps() []string {
+	var timeStamps []string
 	for key := range t {
-		timeSeriesKeys = append(timeSeriesKeys, key)
+		timeStamps = append(timeStamps, key)
 	}
-	sort.Sort(sort.Reverse(sort.StringSlice(timeSeriesKeys)))
-	return timeSeriesKeys
+	sort.Sort(sort.Reverse(sort.StringSlice(timeStamps)))
+	return timeStamps
 }
 
 // Series is a map containing the open, high, low, close, volume values
