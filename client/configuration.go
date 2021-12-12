@@ -2,7 +2,7 @@ package client
 
 import "time"
 
-const defaultTimeout time.Duration = 2 * time.Second
+const defaultTimeout = 2 * time.Second
 
 // Configuration of APIClient
 type Configuration struct {
