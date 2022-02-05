@@ -9,11 +9,16 @@ import (
 )
 
 const (
-	Intraday      = "TIME_SERIES_INTRADAY"
-	Daily         = "TIME_SERIES_DAILY"
+	// Intraday function
+	Intraday = "TIME_SERIES_INTRADAY"
+	// Daily function
+	Daily = "TIME_SERIES_DAILY"
+	// DailyAdjusted function
 	DailyAdjusted = "TIME_SERIES_DAILY_ADJUSTED"
-	Weekly        = "TIME_SERIES_WEEKLY"
-	Monthly       = "TIME_SERIES_MONTHLY"
+	// Weekly function
+	Weekly = "TIME_SERIES_WEEKLY"
+	// Monthly function
+	Monthly = "TIME_SERIES_MONTHLY"
 )
 
 // TimeSeriesIntraday returns intraday time series (timestamp, open, high, low, close, volume) of the equity specified, updated realtime.
@@ -25,6 +30,9 @@ func (api *AVClient) TimeSeriesIntraday(symbol, interval string) (*TimeSeriesDat
 		AddParam("interval", interval)
 
 	res, err := timeSeriesCall(*api.client, req)
+	if err != nil {
+		return nil, err
+	}
 
 	metaData := gjson.Get(res, "Meta Data")
 	timeSeries := gjson.Get(res, fmt.Sprintf("Time Series (%s)", interval))
@@ -45,6 +53,9 @@ func (api *AVClient) TimeSeries(function, symbol string) (*TimeSeriesData, error
 		AddParam("symbol", symbol)
 
 	res, err := timeSeriesCall(*api.client, req)
+	if err != nil {
+		return nil, err
+	}
 
 	metaData := gjson.Get(res, "Meta Data")
 	timeSeries := gjson.Get(res, timeSeriesType(function))
